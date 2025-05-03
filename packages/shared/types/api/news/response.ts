@@ -6,4 +6,4 @@ export type NewsResponse = {
   publishedAt: string;
   content: string;
   author?: string;
-}
+};
