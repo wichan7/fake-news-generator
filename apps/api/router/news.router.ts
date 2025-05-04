@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import NewsService from "../service/newsService";
+import NewsService from "../service/news.service";
 
 const newsRouter = new Hono();
 const newsService = new NewsService();

@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import newsRouter from "./router/news";
+import newsRouter from "./router/news.router";
 import dotenv from "dotenv";
 
 dotenv.config();
