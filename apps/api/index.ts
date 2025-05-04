@@ -1,14 +1,19 @@
-import type { NewsResponse } from "@shared/types/api/news/response";
+import { Hono } from "hono";
+import { cors } from "hono/cors";
+import newsRouter from "./router/news";
+import dotenv from "dotenv";
 
-const news: NewsResponse = {
-  id: "1",
-  title: "Breaking News: TypeScript is Awesome!",
-  description:
-    "TypeScript has become the go-to language for modern web development.",
-  imageUrl: "https://example.com/image.jpg",
-  publishedAt: new Date().toISOString(),
-  content:
-    "In a recent survey, developers have overwhelmingly praised TypeScript for its type safety and developer experience.",
+dotenv.config();
+const app = new Hono();
+
+// middlewares
+app.use("/*", cors());
+
+// routes
+app.route("/news", newsRouter);
+
+console.log("[index] Server is running on http://localhost:8080");
+export default {
+  port: 8080,
+  fetch: app.fetch,
 };
-
-console.log(news);
