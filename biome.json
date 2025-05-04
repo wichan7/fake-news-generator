@@ -17,8 +17,8 @@
     "rules": {
       "recommended": true,
 			"a11y": {
-        "useButtonType": "off",
-				"noBlankTarget": "off"
+        "useButtonType": "warn",
+				"noBlankTarget": "warn"
       }
     }
   },
