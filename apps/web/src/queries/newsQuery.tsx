@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import NewsService from "../services/NewsService";
-
+import type { NewsCreateRequest } from "@shared/types/api/news/request";
 const useNewsQuery = () => {
   const newsService = new NewsService();
 
@@ -11,7 +11,13 @@ const useNewsQuery = () => {
     });
   };
 
-  return { useFetchNews };
+  const useCreateNews = () => {
+    return useMutation({
+      mutationFn: (data: NewsCreateRequest) => newsService.createNews(data),
+    });
+  };
+
+  return { useFetchNews, useCreateNews };
 };
 
 export default useNewsQuery;

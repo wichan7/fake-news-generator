@@ -1,29 +1,40 @@
-import axios from "axios";
+import axios, { type AxiosInstance } from "axios";
 
 class Api {
-  api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-  });
+  private api: AxiosInstance;
 
   constructor() {
-    this.api.interceptors.request.use(); // todo: 필요 시 interceptor 추가
-    this.api.interceptors.response.use(); // todo: 필요 시 interceptor 추가
+    this.api = axios.create({
+      baseURL: import.meta.env.VITE_API_URL,
+    });
+
+    this.api.interceptors.request.use(
+      (config) => {
+        return config;
+      },
+      (error) => Promise.reject(error),
+    );
+
+    this.api.interceptors.response.use(
+      (response) => response,
+      (error) => Promise.reject(error),
+    );
   }
 
-  get<T>(url: string, params?: unknown) {
-    return this.api.get<T>(url, { params });
+  get<Response>(url: string, params?: object) {
+    return this.api.get<Response>(url, { params });
   }
 
-  post<T>(url: string, data?: unknown) {
-    return this.api.post<T>(url, data);
+  post<Request, Response>(url: string, data?: Request) {
+    return this.api.post<Response>(url, data);
   }
 
-  put<T>(url: string, data?: unknown) {
-    return this.api.put<T>(url, data);
+  put<Request, Response>(url: string, data?: Request) {
+    return this.api.put<Response>(url, data);
   }
 
-  delete<T>(url: string) {
-    return this.api.delete<T>(url);
+  delete<Response = void>(url: string) {
+    return this.api.delete<Response>(url);
   }
 }
 
