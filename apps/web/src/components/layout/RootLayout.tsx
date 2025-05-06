@@ -45,7 +45,7 @@ const RootLayout = () => {
             <Link to="/">홈</Link>
           </Menu.Item>
           <Menu.Item key="/news">
-            <Link to="/news">뉴스 생성</Link>
+            <Link to="/news/0">뉴스 생성</Link>
           </Menu.Item>
         </Menu>
       </Header>

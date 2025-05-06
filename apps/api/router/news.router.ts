@@ -16,8 +16,8 @@ newsRouter.get("/:id", async (c) => {
 });
 
 newsRouter.post("/", async (c) => {
-  const { title, content } = await c.req.json();
-  const news = await newsService.createNews({ title, content });
+  const { title } = await c.req.json();
+  const news = await newsService.createNews({ title });
   return c.json(news);
 });
 
