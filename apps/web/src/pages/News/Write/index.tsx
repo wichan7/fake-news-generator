@@ -9,7 +9,7 @@ import {
 } from "antd";
 import CommonWarning from "../../../components/Description/CommonWarning";
 import * as S from "./index.style";
-import useNewsQuery from "../../../queries/newsQuery";
+import useNewsQuery from "../../../queries/news.query";
 import { useNavigate } from "react-router-dom";
 import useModal from "antd/lib/modal/useModal";
 

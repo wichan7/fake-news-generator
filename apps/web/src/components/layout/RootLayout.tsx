@@ -41,8 +41,8 @@ const RootLayout = () => {
   return (
     <Layout>
       <Header>
-        <Typography.Title level={3} style={{ color: "white", margin: 0 }}>
-          {isNewsDetailPage ? "위찬미디어" : "가짜 뉴스 생성기"}
+        <Typography.Title level={5} style={{ color: "white", margin: 0 }}>
+          {isNewsDetailPage ? "W.C.미디어" : "가짜 뉴스 생성기"}
         </Typography.Title>
         <Menu
           theme="dark"

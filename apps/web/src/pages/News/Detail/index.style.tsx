@@ -4,7 +4,7 @@ export const Container = styled("div")({
   display: "flex",
   flexDirection: "column",
   gap: 20,
-  padding: 40,
+  padding: "40px 20px",
   backgroundColor: "#fff",
 });
 
@@ -20,14 +20,14 @@ export const InfoWrapper = styled("div")({
 });
 
 export const ContentWrapper = styled("div")({
-  "& article": {
-    lineHeight: 2,
-  },
-  "& header": {
-    fontSize: 24,
-    textAlign: "center",
-  },
-  "& p": {
-    margin: "20px 0",
-  },
+  position: "relative",
+  lineHeight: 2,
+});
+
+export const GradientBox = styled("div")({
+  background: "linear-gradient(to bottom, transparent, white 80%, white)",
+  position: "absolute",
+  bottom: 0,
+  width: "100%",
+  height: "100%",
 });
