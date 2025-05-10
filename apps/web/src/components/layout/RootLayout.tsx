@@ -1,4 +1,4 @@
-import { Layout, Menu } from "antd";
+import { Layout as AntdLayout, Menu, Typography } from "antd";
 import {
   Header as AntdHeader,
   Content as AntdContent,
@@ -6,6 +6,10 @@ import {
 } from "antd/es/layout/layout";
 import { Outlet, Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+
+const Layout = styled(AntdLayout)({
+  minHeight: "100dvh",
+});
 
 const Header = styled(AntdHeader)({
   color: "white",
@@ -18,6 +22,7 @@ const Header = styled(AntdHeader)({
 const Content = styled(AntdContent)({
   maxWidth: 800,
   margin: "0 auto",
+  padding: "0 20px",
 });
 
 const Footer = styled(AntdFooter)({
@@ -30,11 +35,15 @@ const Footer = styled(AntdFooter)({
 
 const RootLayout = () => {
   const location = useLocation();
+  const isNewsDetailPage =
+    location.pathname.includes("/news/") && location.pathname !== "/news/0";
 
   return (
     <Layout>
       <Header>
-        <span>가짜 뉴스 생성기</span>
+        <Typography.Title level={5} style={{ color: "white", margin: 0 }}>
+          {isNewsDetailPage ? "W.C.미디어" : "가짜 뉴스 생성기"}
+        </Typography.Title>
         <Menu
           theme="dark"
           mode="horizontal"
@@ -44,9 +53,11 @@ const RootLayout = () => {
           <Menu.Item key="/">
             <Link to="/">홈</Link>
           </Menu.Item>
-          <Menu.Item key="/news">
-            <Link to="/news">뉴스 생성</Link>
-          </Menu.Item>
+          {!isNewsDetailPage && (
+            <Menu.Item key="/news">
+              <Link to="/news/0">뉴스 생성</Link>
+            </Menu.Item>
+          )}
         </Menu>
       </Header>
       <Content>
