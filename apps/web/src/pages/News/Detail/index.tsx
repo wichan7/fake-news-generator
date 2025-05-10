@@ -1,73 +1,89 @@
 import * as S from "./index.style";
 import useNewsQuery from "../../../queries/news.query";
 import { useParams } from "react-router-dom";
-import { Button, Image, Typography } from "antd";
+import { Breadcrumb, Button, Image, Typography } from "antd";
 import bannerJokeSrc from "../../../assets/banner_joke.png";
 import bannerNewsSrc from "../../../assets/banner_news_1.png";
 import { useState } from "react";
 import React from "react";
+import Confetti from "../../../components/Confetti";
 
 const NewsDetailPage = () => {
   const { id } = useParams();
   const { useFetchNews } = useNewsQuery();
   const news = useFetchNews(id as string);
 
-  const [isFolding, setIsFolding] = useState(true); // todo: 더보가 처리
+  const [isFolding, setIsFolding] = useState(true);
 
+  /**
+   * handlers
+   */
   const handleClickMore = () => {
     setIsFolding(false);
   };
 
+  /**
+   * renderers
+   */
+  const renderBreadcrumb = () => {
+    return <Breadcrumb items={[{ title: "사회" }, { title: "사회 일반" }]} />;
+  };
+  const renderContent = () => {
+    return (news.data?.content || "").split("\n").map((value, idx) => (
+      // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+      <React.Fragment key={idx}>
+        {value}
+        <br />
+      </React.Fragment>
+    ));
+  };
+
   return (
     <S.Container>
+      {!isFolding && (
+        <Confetti type="crossfire" autorun={{ speed: 3, duration: 2000 }} />
+      )}
       {!news.isLoading && (
         <>
+          {renderBreadcrumb()}
           <S.TitleWrapper>
             <Typography.Title level={2}>{news.data?.title}</Typography.Title>
           </S.TitleWrapper>
-          <S.InfoWrapper>
+          <S.DescriptionContainer>
             <Typography.Text>
-              입력일: {news.data?.created_at.format("YYYY-MM-DD HH:mm")}
+              입력: {news.data?.created_at.format("YYYY-MM-DD HH:mm")}
             </Typography.Text>
             <Typography.Text>
-              수정일: {news.data?.updated_at.format("YYYY-MM-DD HH:mm")}
+              수정: {news.data?.updated_at.format("YYYY-MM-DD HH:mm")}
             </Typography.Text>
-            <Typography.Text>작성: 김현지 기자</Typography.Text>
-          </S.InfoWrapper>
-          {isFolding && <Image src={bannerNewsSrc} preview={false} />}
+          </S.DescriptionContainer>
+          <S.BannerWrapper>
+            {isFolding ? (
+              <Image src={bannerNewsSrc} preview={false} />
+            ) : (
+              <Image src={bannerJokeSrc} preview={false} />
+            )}
+          </S.BannerWrapper>
           <S.ContentWrapper>
-            {isFolding && (
+            {isFolding ? (
               <>
-                {(news.data?.content || "").split("\n").map((value, idx) => (
-                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                  <React.Fragment key={idx}>
-                    {value}
-                    <br />
-                  </React.Fragment>
-                ))}
+                {renderContent()}
                 <S.GradientBox>
-                  <div
-                    style={{
-                      position: "absolute",
-                      width: "100%",
-                      textAlign: "center",
-                      bottom: 20,
-                    }}
-                  >
+                  <S.MoreButtonWrapper>
                     <Button
                       size="large"
                       type="primary"
                       block
-                      style={{ height: 50 }}
                       onClick={handleClickMore}
                     >
                       내용 더보기
                     </Button>
-                  </div>
+                  </S.MoreButtonWrapper>
                 </S.GradientBox>
               </>
+            ) : (
+              <></>
             )}
-            {!isFolding && <Image src={bannerJokeSrc} preview={false} />}
           </S.ContentWrapper>
         </>
       )}

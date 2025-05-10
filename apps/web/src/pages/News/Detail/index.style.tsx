@@ -13,11 +13,13 @@ export const TitleWrapper = styled("h1")({
   textAlign: "center",
 });
 
-export const InfoWrapper = styled("div")({
+export const DescriptionContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   textAlign: "end",
 });
+
+export const BannerWrapper = styled("div")({});
 
 export const ContentWrapper = styled("div")({
   position: "relative",
@@ -30,4 +32,11 @@ export const GradientBox = styled("div")({
   bottom: 0,
   width: "100%",
   height: "100%",
+});
+
+export const MoreButtonWrapper = styled("div")({
+  position: "absolute",
+  bottom: 0,
+  width: "100%",
+  textAlign: "center",
 });
