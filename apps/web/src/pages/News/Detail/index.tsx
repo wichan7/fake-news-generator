@@ -41,7 +41,7 @@ const NewsDetailPage = () => {
   return (
     <S.Container>
       {!isFolding && (
-        <Confetti type="crossfire" autorun={{ speed: 3, duration: 2000 }} />
+        <Confetti type="fireworks" autorun={{ speed: 3, duration: 2000 }} />
       )}
       {!news.isLoading && (
         <>

@@ -8,7 +8,7 @@ export const Container = styled("div")({
   backgroundColor: "#fff",
 });
 
-export const TitleWrapper = styled("h1")({
+export const TitleWrapper = styled("div")({
   display: "block",
   textAlign: "center",
 });
