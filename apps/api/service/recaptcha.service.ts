@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ReCAPTCHAResponse } from "@shared/types/api/recaptcha/response";
+import { ERRORS } from "../error/apiError";
 
 interface SiteVerifyRequest {
   secret: string;
@@ -14,19 +14,25 @@ interface SiteVerifyResponse {
 }
 
 class ReCAPTCHAService {
-  private readonly secretKey = process.env.GOOGLE_RECAPTCHA_SECRET_KEY;
+  private readonly secretKey = process.env.GOOGLE_RECAPTCHA_SECRET_KEY || "";
 
   async verify(token: string) {
+    const params: SiteVerifyRequest = {
+      secret: this.secretKey,
+      response: token,
+    };
+
     const { data } = await axios.post<SiteVerifyResponse>(
       "https://www.google.com/recaptcha/api/siteverify",
       undefined,
-      { params: { secret: this.secretKey, response: token } }, // query parameter로 전달해야함.
+      { params },
     );
 
-    const result: ReCAPTCHAResponse = {
-      isValid: data.score > 0.5,
-    };
-    return result;
+    if (!data.success || data.score < 0.5) {
+      throw ERRORS.INVALID_RECAPTCHA_RESULT;
+    }
+
+    return true;
   }
 }
 

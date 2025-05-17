@@ -13,9 +13,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ConfigProvider locale={koKR} theme={themeConfig}>
-        <RouterProvider router={router} />
+        <ReCAPTCHA>
+          <RouterProvider router={router} />
+        </ReCAPTCHA>
       </ConfigProvider>
-      <ReCAPTCHA />
     </QueryClientProvider>
   );
 }
