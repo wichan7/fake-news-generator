@@ -7,6 +7,9 @@ export const ERRORS = {
   UNKNOWN_ERROR: new HTTPException(500, {
     message: "Unknown error",
   }),
+  BAD_REQUEST: new HTTPException(400, {
+    message: "Bad request",
+  }),
   /**
    * recaptcha
    */

@@ -30,11 +30,12 @@ export class NewsService {
   };
 
   createNews = async (news: NewsCreateRequest) => {
-    // verify recaptcha
     await this.recaptchaService.verify(news.recaptchaToken);
-    // generate news content from openai
-    const generatedContent = await this.openAIService.generateText(news.title);
-    // insert news to database
+    await this.openAIService.verifyScam(news.title);
+
+    const generatedContent = await this.openAIService.generateNewsContent(
+      news.title,
+    );
     const newNews = await newsRepository.insert({
       ...news,
       content: generatedContent,
